@@ -1,9 +1,10 @@
 from datetime import datetime
 from typing import Any, Callable, List, Optional
+from urllib.parse import urljoin
 
 from google_play_scraper.utils import nested_lookup
 from google_play_scraper.utils.data_processors import unescape_text
-
+from google_play_scraper.constants.request import PLAY_STORE_BASE_URL
 
 class ElementSpec:
     def __init__(
@@ -239,4 +240,18 @@ class ElementSpecs:
         "descriptionHTML": ElementSpec(None, [0, 13, 1]),
         "developer": ElementSpec(None, [0, 14]),
         "installs": ElementSpec(None, [0, 15]),
+    }
+
+    List = {
+        "title": ElementSpec(None, [0, 3]),
+        "appId": ElementSpec(None, [0, 0, 0]),
+        "url": ElementSpec(None, [0, 10, 4, 2], lambda path: urljoin(PLAY_STORE_BASE_URL, path)),
+        "icon": ElementSpec(None, [0, 1, 3, 2]),
+        "developer": ElementSpec(None, [0, 14]),
+        "currency": ElementSpec(None, [0, 8, 1, 0, 1]),
+        "price": ElementSpec(None, [0, 8, 1, 0, 0], lambda price: price / 1000000),
+        "free": ElementSpec(None, [0, 8, 1, 0, 0], lambda price: price == 0),
+        "summary": ElementSpec(None, [0, 13, 1]),
+        "scoreText": ElementSpec(None, [0, 4, 0]),
+        "score": ElementSpec(None, [0, 4, 1])
     }

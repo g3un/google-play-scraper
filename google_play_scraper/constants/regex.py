@@ -7,4 +7,5 @@ class Regex:
     KEY = re.compile("(ds:.*?)'")
     VALUE = re.compile(r"data:([\s\S]*?), sideChannel: {}}\);<\/")
     REVIEWS = re.compile(r"\)]}'\n\n([\s\S]+)")
+    LIST = re.compile(r"\)]}'\n\n\d+\n([\s\S]+?)\n")
     PERMISSIONS = re.compile(r"\)]}'\n\n([\s\S]+)")
